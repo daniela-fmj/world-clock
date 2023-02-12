@@ -76,8 +76,19 @@ function updateTime() {
 
 function updateCity(event) {
   let cityTimeZone = event.target.value;
+  if (cityTimeZone === "current") {
+    cityTimeZone = moment.tz.guess();
+  }
+  if (cityTimeZone === "America/New_York") {
+    cityTimeZone = "America/Boston, MA";
+  }
+  if (cityTimeZone === "America/Detroit") {
+    cityTimeZone = "America/Ann_Arbor, MI";
+  }
+  if (cityTimeZone === "America/Los_Angeles") {
+    cityTimeZone = "America/Portland, OR";
+  }
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
-  console.log(cityName);
   let cityTime = moment().tz(cityTimeZone);
   let citiesElement = document.querySelector("#cities");
   citiesElement.innerHTML = `
@@ -92,6 +103,8 @@ function updateCity(event) {
   )}</small></div>
       </div>
     </div>
+    </br>
+    <a class="allCities" href="/">All cities</a>
   `;
 }
 
